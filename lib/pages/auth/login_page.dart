@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vc_deca_web/utils/theme.dart';
-import 'package:firebase/firebase.dart';
+import 'package:firebase/firebase.dart' as fb;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,7 +9,82 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  Widget buttonChild = new Text("Login");
+  Widget loginWidget = new Container();
+
+  String _email = "";
+  String _password = "";
+
+  void accountErrorDialog(String error) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Login Error"),
+          content: new Text(
+            "There was an error logging you in: $error",
+            style: TextStyle(fontFamily: "Product Sans", fontSize: 14.0),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("GOT IT"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void login() async {
+    setState(() {
+      loginWidget = new Container();
+    });
+    try {
+      await fb.auth().setPersistence("LOCAL");
+      await fb.auth().signInWithEmailAndPassword(_email, _password);
+      print("Signed in! ${fb.auth().currentUser.uid}");
+    } catch (error) {
+      print("Error: ${error.toString()}");
+      accountErrorDialog(error.toString());
+    }
+    setState(() {
+      loginWidget = new RaisedButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        onPressed: login,
+        child: new Text("Login"),
+        elevation: 0.0,
+        color: mainColor,
+        textColor: Colors.white,
+      );
+    });
+  }
+
+  void emailField(input) {
+    _email = input;
+  }
+
+  void passwordField(input) {
+    _password = input;
+  }
+
+  _LoginPageState() {
+    if (fb.auth().currentUser != null) {
+      // User already logged
+      Navigator.pushNamed(context, '/');
+    }
+    loginWidget = new RaisedButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      onPressed: login,
+      child: new Text("Login"),
+      elevation: 0.0,
+      color: mainColor,
+      textColor: Colors.white,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: "Email",
                       hintText: "Enter your email"
                   ),
+                  onChanged: emailField,
+                  onSubmitted: (input) {
+                    login();
+                  },
                   autocorrect: false,
                   keyboardType: TextInputType.emailAddress,
                   textCapitalization: TextCapitalization.none,
@@ -43,20 +122,17 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: "Password",
                       hintText: "Enter your password"
                   ),
+                  onChanged: passwordField,
+                  onSubmitted: (input) {
+                    login();
+                  },
                   autocorrect: false,
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.none,
                   obscureText: true,
                 ),
                 new Padding(padding: EdgeInsets.all(8.0)),
-                new RaisedButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                  onPressed: () {},
-                  child: buttonChild,
-                  elevation: 0.0,
-                  color: mainColor,
-                  textColor: Colors.white,
-                ),
+                loginWidget,
                 new Padding(padding: EdgeInsets.all(8.0)),
                 new FlatButton(
                   child: new Text(
