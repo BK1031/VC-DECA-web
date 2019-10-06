@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vc_deca_web/navbar/event_navbar.dart';
+import 'package:vc_deca_web/navbar/home_navbar.dart';
 
 class EventPage extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _EventPageState extends State<EventPage> {
     return new Scaffold(
       body: new Column(
         children: <Widget>[
-          EventNavbar(),
+          HomeNavbar(),
         ],
       ),
     );

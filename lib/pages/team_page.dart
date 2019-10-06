@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vc_deca_web/navbar/team_navbar.dart';
+import 'package:vc_deca_web/navbar/home_navbar.dart';
 
 class TeamPage extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class _TeamPageState extends State<TeamPage> {
     return new Scaffold(
       body: new Column(
         children: <Widget>[
-          TeamNavbar(),
+          HomeNavbar()
         ],
       ),
     );

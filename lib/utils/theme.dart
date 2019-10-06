@@ -9,8 +9,8 @@ Color eventColor = const Color(0xFF0073CE);
 // LIGHT THEME
 const lightTextColor = Colors.black;
 const lightAccentColor = Color(0xFF0073CE);
-const lightBackgroundColor = Colors.white;
-const lightCardColor = Color(0xFFDFE0E5);
+const lightBackgroundColor = Color(0xFFf9f9f9);
+const lightCardColor = Colors.white;
 const lightDividerColor = const Color(0xFFC9C9C9);
 
 // DARK THEME

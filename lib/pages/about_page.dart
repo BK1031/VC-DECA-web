@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vc_deca_web/navbar/home_navbar.dart';
 import 'package:vc_deca_web/utils/theme.dart';
-import 'package:vc_deca_web/navbar/about_navbar.dart';
+import 'dart:html' as html;
 
 class AboutPage extends StatefulWidget {
   @override
@@ -8,12 +9,18 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new Column(
         children: <Widget>[
-          AboutNavbar()
+          HomeNavbar()
         ],
       ),
     );

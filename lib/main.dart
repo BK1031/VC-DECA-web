@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vc_deca_web/pages/about_page.dart';
 import 'package:vc_deca_web/pages/event_page.dart';
-import 'package:vc_deca_web/pages/home_page.dart';
+import 'package:vc_deca_web/pages/home/announcement_page.dart';
+import 'package:vc_deca_web/pages/home/home_page.dart';
 import 'package:vc_deca_web/pages/auth/login_page.dart';
 import 'package:vc_deca_web/pages/auth/register_page.dart';
+import 'package:vc_deca_web/pages/home/new_announcement_page.dart';
+import 'package:vc_deca_web/pages/not_found_page.dart';
 import 'package:vc_deca_web/pages/store_page.dart';
 import 'package:vc_deca_web/pages/team_page.dart';
 import 'package:vc_deca_web/utils/theme.dart';
@@ -23,8 +26,17 @@ void main() {
     debugShowCheckedModeBanner: false,
     theme: mainTheme,
     initialRoute: '/',
+    onUnknownRoute: (RouteSettings setting) {
+      String unknownRoute = setting.name;
+      return new MaterialPageRoute(
+          builder: (context) => NotFoundPage(unknownRoute)
+      );
+    },
     routes: {
       '/': (context) => new HomePage(),
+      '/home': (context) => new HomePage(),
+      '/home/announcements': (context) => new AnnouncementPage(),
+      '/home/announcements/new': (context) => new NewAnnouncementPage(),
       '/about': (context) => new AboutPage(),
       '/team': (context) => new TeamPage(),
       '/events': (context) => new EventPage(),

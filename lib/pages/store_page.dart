@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vc_deca_web/navbar/store_navbar.dart';
+import 'package:vc_deca_web/navbar/home_navbar.dart';
 
 class StorePage extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class _StorePageState extends State<StorePage> {
     return new Scaffold(
       body: new Column(
         children: <Widget>[
-          StoreNavbar(),
+          HomeNavbar(),
         ],
       ),
     );
